@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import randomWords from "random-words";
+import { data } from "./data";
 import Result from "./Result";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
@@ -9,10 +8,16 @@ function classNames(...classes) {
 }
 
 const TypingTest = () => {
-  const numOfWords = 70;
+  const [languageChoice, setLanguageChoice] = useState(Object.keys(data)[0]);
 
   const [userInput, setUserInput] = useState([]);
-  const [initialWords, setInitialWords] = useState(randomWords(numOfWords));
+
+  const [initialWords, setInitialWords] = useState(
+    data[languageChoice][
+      Math.floor(Math.random() * data[languageChoice].length)
+    ].split(" ")
+  );
+
   const [initialTimer, setInitialTimer] = useState(30);
   const [timer, setTimer] = useState(initialTimer);
   const [start, setStart] = useState(false);
@@ -23,10 +28,20 @@ const TypingTest = () => {
   const [counter, setCounter] = useState(0);
   const [fullCounter, setFullCounter] = useState(0);
 
+  const Only_letters_and_symbols = [
+    8, 9, 32, 40, 41, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
+    69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
+    88, 89, 90, 186, 187, 188, 189, 219, 220, 221, 222,
+  ];
+
   const timerButtons = [10, 15, 20, 30, 60];
 
   const restart = () => {
-    setInitialWords(randomWords(numOfWords));
+    setInitialWords(
+      data[languageChoice][
+        Math.floor(Math.random() * data[languageChoice].length)
+      ].split(" ")
+    );
     setInitialTimer(initialTimer);
     setUserInput([]);
     setStart(false);
@@ -40,51 +55,57 @@ const TypingTest = () => {
   };
 
   const handleUserInput = (event) => {
-    if (event.which === 8) {
-      if (letterIndex === 0) return;
-      else {
-        const newTab = [...userInput];
+    if (Only_letters_and_symbols.includes(event.which)) {
+      if (event.which === 8) {
+        if (letterIndex === 0) return;
+        else {
+          const newTab = [...userInput];
 
-        newTab.splice(userInput.length - 1, 1);
-        setUserInput([...newTab]);
-        setLetterIndex((prevState) => prevState - 1);
-        setCounter(counter - 1);
-        setFullCounter(fullCounter - 1);
-      }
-    } else if (event.which === 9) {
-      event.preventDefault();
-      restart();
-    } else {
-      setStart(true);
-      setCounter(counter + 1);
-      setFullCounter(fullCounter + 1);
-      setLetterIndex(letterIndex + 1);
-
-      if (event.key === initialWords.join(" ").split("")[userInput.length]) {
-        setUserInput([
-          ...userInput,
-          {
-            letter: event.key,
-            valid: true,
-            key: wordIndex.toString() + letterIndex.toString(),
-          },
-        ]);
+          newTab.splice(userInput.length - 1, 1);
+          setUserInput([...newTab]);
+          setLetterIndex((prevState) => prevState - 1);
+          setCounter(counter - 1);
+          setFullCounter(fullCounter - 1);
+        }
+      } else if (event.which === 9) {
+        event.preventDefault();
+        restart();
       } else {
-        setUserInput([
-          ...userInput,
-          {
-            letter: event.key,
-            valid: false,
-            key: wordIndex.toString() + letterIndex.toString(),
-          },
-        ]);
-      }
+        setStart(true);
+        setCounter(counter + 1);
+        setFullCounter(fullCounter + 1);
+        setLetterIndex(letterIndex + 1);
 
-      if (letterIndex === length) {
-        setLetterIndex(0);
-        setWordIndex(wordIndex + 1);
+        if (event.key === initialWords.join(" ").split("")[userInput.length]) {
+          setUserInput([
+            ...userInput,
+            {
+              letter: event.key,
+              valid: true,
+              key: wordIndex.toString() + letterIndex.toString(),
+            },
+          ]);
+        } else {
+          setUserInput([
+            ...userInput,
+            {
+              letter: event.key,
+              valid: false,
+              key: wordIndex.toString() + letterIndex.toString(),
+            },
+          ]);
+        }
+
+        if (letterIndex === length) {
+          setLetterIndex(0);
+          setWordIndex(wordIndex + 1);
+        }
       }
-    }
+    } else return;
+  };
+
+  const changeLanguage = (language) => {
+    setLanguageChoice(language);
   };
 
   const changeTimer = (time) => {
@@ -126,6 +147,10 @@ const TypingTest = () => {
     const myLength = initialWords[wordIndex].length;
     setLength(myLength);
   }, [wordIndex]);
+
+  useEffect(() => {
+    restart();
+  }, [languageChoice]);
 
   return (
     <>
@@ -226,6 +251,24 @@ const TypingTest = () => {
                 )}
               >
                 {timerBtn}
+              </button>
+            ))}
+          </div>
+
+          <div className="absolute isolate top-28 left-1/2 inline-flex items-center -translate-x-1/2 text-md text-slate-400">
+            Language:
+            {Object.keys(data).map((language, index) => (
+              <button
+                onClick={() => changeLanguage(language)}
+                key={index}
+                className={classNames(
+                  index === 0 && "rounded-l-md ml-2",
+                  index === Object.keys(data).length - 1 && "rounded-r-md",
+                  language === languageChoice && "bg-slate-700",
+                  "relative inline-flex items-center border border-slate-700 text-slate-500 px-4 py-2 text-sm font-medium focus:z-10"
+                )}
+              >
+                {language}
               </button>
             ))}
           </div>
