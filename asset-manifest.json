@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/gigachad/static/css/main.68c44948.css",
+    "main.js": "/gigachad/static/js/main.10e928d5.js",
+    "static/media/log.jpg": "/gigachad/static/media/log.e6bd65504080980a795e.jpg",
+    "index.html": "/gigachad/index.html",
+    "main.68c44948.css.map": "/gigachad/static/css/main.68c44948.css.map",
+    "main.10e928d5.js.map": "/gigachad/static/js/main.10e928d5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68c44948.css",
+    "static/js/main.10e928d5.js"
+  ]
+}
