@@ -17,6 +17,8 @@
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.0.3",
     "react-scripts": "5.0.1",
+    "react-share-button": "^0.0.4",
+    "react-share-on-social": "^1.0.8",
     "use-interval": "^1.4.0",
     "web-vitals": "^2.1.0"
   },

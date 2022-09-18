@@ -1,6 +1,8 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CodeBracketIcon } from "@heroicons/react/24/outline";
+import ShareOnSocial from "react-share-on-social";
+import favicon from "./log.jpg";
 
 export default function Result({ wpm, restart }) {
   const [open, setOpen] = useState(true);
@@ -49,12 +51,26 @@ export default function Result({ wpm, restart }) {
                     >
                       Your typing speed is{" "}
                       <span className="text-red-50 font-mono text-lg">
-                        {wpm} wpm
+                        {wpm} cpm(code per minute)
                       </span>
+                      
                     </Dialog.Title>
+
+                    <ShareOnSocial
+                    textToShare="I got this score, try it now"
+                    link="https://youtube.com"
+                    linkTitle="Typing test from Abel and Henok"
+                    linkMetaDesc="Share your score"
+                    linkFavicon={favicon}
+                    noReferer
+    >
+      <button>Share score</button>
+    </ShareOnSocial>
                   </div>
-                </div>
+                </div>    
+
                 <div className="mt-5 sm:mt-6">
+                    
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-slate-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-slate-700 sm:col-start-2 sm:text-sm"

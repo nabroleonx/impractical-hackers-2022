@@ -1,7 +1,8 @@
 export const data = {
   javascript: [
+    
     "const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object",
-    "const daysBetween = (date1, date2) => Math.ceil(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24))",
+    "const daysBetween = (date1, date2) => Math.ceil(Math.abs(date1 - date2))",
   ],
 
   java: [
@@ -13,13 +14,14 @@ export const data = {
   ],
 
   python: [
-    "const daysBetween = (date1, date2) => Math.ceil(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24))",
+    
+    "const daysBetween = (date1, date2) => Math.ceil(Math.abs(date1 - date2))",
 
     "list(filter(lambda x:all(x % y != 0 for y in range(2, x)), range(2, 13)))",
 
-    "lambda L: [] if L==[] else qsort([x for x in L[1:] if x< L[0]]) + L[0:1] + qsort([x for x in L[1:] if x>=L[0]])",
+    "lis = list(map(int, input().split()))",
 
-    "lambda L: [] if L==[] else qsort([x for x in L[1:] if x< L[0]]) + L[0:1] + qsort([x for x in L[1:] if x>=L[0]])",
+    "for j in range(C): a.append(int(input()))",
 
     "reduce( (lambda r,x: r-set(range(x**2,n,x)) if (x in r) else r), range(2,int(n**0.5)), set(range(2,n)))",
   ],
