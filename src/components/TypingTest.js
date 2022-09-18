@@ -138,11 +138,7 @@ const TypingTest = () => {
       );
       if (filtered.length === 0) {
         setWpm(1);
-      } else
-        setWpm(
-          (filtered.length / 4) *
-            Math.round(60 / timer === 0 ? initialTimer : remainingTime)
-        );
+      } else setWpm((filtered.length / 4) * Math.round(60 / initialTimer));
     }
   }, [remainingTime, timer]);
 
