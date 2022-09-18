@@ -54,17 +54,6 @@ export default function Result({ wpm, restart }) {
                         {wpm} cpm(code per minute)
                       </span>
                     </Dialog.Title>
-
-                    <ShareOnSocial
-                      textToShare="I got this score, try it now"
-                      link="https://youtube.com"
-                      linkTitle="Typing test from Abel and Henok"
-                      linkMetaDesc="Share your score"
-                      linkFavicon={favicon}
-                      noReferer
-                    >
-                      <button>Share score</button>
-                    </ShareOnSocial>
                   </div>
                 </div>
 

@@ -27,6 +27,7 @@ const TypingTest = () => {
   const [length, setLength] = useState(initialWords[0].length);
   const [counter, setCounter] = useState(0);
   const [fullCounter, setFullCounter] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(null);
 
   const Only_letters_and_symbols = [
     8, 9, 32, 40, 41, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
@@ -98,7 +99,9 @@ const TypingTest = () => {
 
         if (letterIndex === length) {
           setLetterIndex(0);
-          setWordIndex((prevState) => prevState + 1);
+          if (wordIndex === initialWords.length - 1) {
+            setRemainingTime(timer);
+          } else setWordIndex((prevState) => prevState + 1);
         }
       }
     } else return;
@@ -129,15 +132,19 @@ const TypingTest = () => {
   }, [start, timer]);
 
   useEffect(() => {
-    if (timer === 0) {
+    if (remainingTime != null || timer === 0) {
       const filtered = userInput.filter(
         (word) => word.letter.trim() && word.valid
       );
       if (filtered.length === 0) {
         setWpm(1);
-      } else setWpm((filtered.length / 4) * (60 / initialTimer));
+      } else
+        setWpm(
+          (filtered.length / 4) *
+            Math.round(60 / timer === 0 ? initialTimer : remainingTime)
+        );
     }
-  }, [timer]);
+  }, [remainingTime, timer]);
 
   useEffect(() => {
     setTimer(initialTimer);
@@ -196,12 +203,11 @@ const TypingTest = () => {
                                           word.key ===
                                           i.toString() + j.toString()
                                       ).valid
-                                    ? "white"
+                                    ? "#149603"
                                     : "#ff392b",
                                 }}
                                 className="inline-block text-xl tracking-wide relative [word-spacing:0.16rem]"
                               >
-                                {letter === " " ? "\u00a0" : letter}
                                 <div
                                   style={{
                                     display:
@@ -220,6 +226,7 @@ const TypingTest = () => {
                                   }}
                                   className="animate-pulse absolute h-[80%] w-[2px] rounded bg-sky-600 top-2/3 -translate-y-[50%] right-0"
                                 ></div>
+                                {letter === " " ? "\u00a0" : letter}
                               </span>
                             );
                           })}
@@ -250,8 +257,8 @@ const TypingTest = () => {
                 className={classNames(
                   index === 0 && "rounded-l-md ml-2",
                   index === timerButtons.length - 1 && "rounded-r-md",
-                  timerBtn === initialTimer && "bg-slate-700",
-                  "relative inline-flex items-center border border-slate-700 text-slate-500 px-4 py-2 text-sm font-medium focus:z-10"
+                  timerBtn === initialTimer && "bg-slate-200 dark:bg-slate-700",
+                  "relative inline-flex items-center border border-slate-200 dark:border-slate-700 text-slate-500 px-4 py-2 text-sm font-medium focus:z-10"
                 )}
               >
                 {timerBtn}
@@ -268,8 +275,9 @@ const TypingTest = () => {
                 className={classNames(
                   index === 0 && "rounded-l-md ml-2",
                   index === Object.keys(data).length - 1 && "rounded-r-md",
-                  language === languageChoice && "bg-slate-700",
-                  "relative inline-flex items-center border border-slate-700 text-slate-500 px-4 py-2 text-sm font-medium focus:z-10"
+                  language === languageChoice &&
+                    "bg-slate-200 dark:bg-slate-700 ",
+                  "relative inline-flex items-center border border-slate-200 dark:border-slate-700  text-slate-500 px-4 py-2 text-sm font-medium focus:z-10"
                 )}
               >
                 {language}
