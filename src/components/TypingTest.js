@@ -31,7 +31,7 @@ const TypingTest = () => {
   const Only_letters_and_symbols = [
     8, 9, 32, 40, 41, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
     69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
-    88, 89, 90, 186, 187, 188, 189,190,191, 219, 220, 221, 222,
+    88, 89, 90, 186, 187, 188, 189, 190, 191, 219, 220, 221, 222,
   ];
 
   const timerButtons = [10, 15, 20, 30, 60];
@@ -74,7 +74,7 @@ const TypingTest = () => {
         setStart(true);
         setCounter(counter + 1);
         setFullCounter(fullCounter + 1);
-        setLetterIndex(letterIndex + 1);
+        setLetterIndex((prevState) => prevState + 1);
 
         if (event.key === initialWords.join(" ").split("")[userInput.length]) {
           setUserInput([
@@ -98,7 +98,7 @@ const TypingTest = () => {
 
         if (letterIndex === length) {
           setLetterIndex(0);
-          setWordIndex(wordIndex + 1);
+          setWordIndex((prevState) => prevState + 1);
         }
       }
     } else return;
@@ -151,6 +151,10 @@ const TypingTest = () => {
   useEffect(() => {
     restart();
   }, [languageChoice]);
+
+  useEffect(() => {
+    setLength(initialWords[0].length);
+  }, [initialWords]);
 
   return (
     <>
