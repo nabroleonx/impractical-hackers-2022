@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CodeBracketIcon } from "@heroicons/react/24/outline";
+import { CodeBracketIcon, ShareIcon } from "@heroicons/react/24/outline";
 import ShareOnSocial from "react-share-on-social";
 import favicon from "./log.jpg";
 
@@ -53,24 +53,40 @@ export default function Result({ wpm, restart }) {
                       <span className="text-red-50 font-mono text-lg">
                         {wpm} cpm(code per minute)
                       </span>
-                      
                     </Dialog.Title>
 
                     <ShareOnSocial
+                      textToShare="I got this score, try it now"
+                      link="https://youtube.com"
+                      linkTitle="Typing test from Abel and Henok"
+                      linkMetaDesc="Share your score"
+                      linkFavicon={favicon}
+                      noReferer
+                    >
+                      <button>Share score</button>
+                    </ShareOnSocial>
+                  </div>
+                </div>
+
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <ShareOnSocial
                     textToShare="I got this score, try it now"
                     link="https://youtube.com"
                     linkTitle="Typing test from Abel and Henok"
                     linkMetaDesc="Share your score"
                     linkFavicon={favicon}
                     noReferer
-    >
-      <button>Share score</button>
-    </ShareOnSocial>
-                  </div>
-                </div>    
-
-                <div className="mt-5 sm:mt-6">
-                    
+                  >
+                    <button
+                      type="button"
+                      className="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-transparent px-4 py-2 text-base font-light text-white hover:text-slate-700 shadow-sm hover:bg-slate-300 sm:col-start-1"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      <ShareIcon className="mr-1 h-4 w-4" /> Share
+                    </button>
+                  </ShareOnSocial>
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-slate-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-slate-700 sm:col-start-2 sm:text-sm"
