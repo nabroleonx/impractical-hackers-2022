@@ -2,7 +2,7 @@
   "name": "ican2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://nabroleonx.github.io/gigachad/",
+  "homepage": "http://nabroleonx.github.io/impractical-hackers-2022/",
   "dependencies": {
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^2.0.10",
